@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Sidebar from '../components/sidebar';
-import Navbar from '../components/navbar';
 
 interface props {
   routes: {
     [key: string]: any;
   }[];
+  Navbar: (props: any) => JSX.Element;
 }
 
 import { connect, ConnectedProps } from 'react-redux';
@@ -21,16 +21,12 @@ const mapDispatchToProps = {};
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux & props;
-
-const Home = (props: Props) => {
+const Home = (props: ConnectedProps<typeof connector> & props) => {
   const [showSidebar, setShowidebar] = React.useState(true);
   const toggleSidebar = () => setShowidebar(!showSidebar);
   return (
     <div className='h-full'>
-      <Navbar
+      <props.Navbar
         isAuthenticated={props.isAuthenticated}
         toggleSidebar={toggleSidebar}
       />

@@ -3,16 +3,22 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   isAuthenticated: boolean;
-  toggleSidebar: () => void;
+  toggleSidebar?: () => void;
 }
 
 const Navbar = (props: Props) => {
+  const handleToggleSidebar = () => {
+    props.toggleSidebar
+      ? props.toggleSidebar()
+      : console.log('No sidebar present'); // handle this better later
+  };
+
   return (
     <div className='flex flex-row justify-between self-center px-4 py-1 bg-gray-400 border-b-2 border-gray-800'>
       {/* Toggle Sidebar */}
       <div className='flex self-center'>
         <div>
-          <button onClick={props.toggleSidebar} className='focus:outline-none'>
+          <button onClick={handleToggleSidebar} className='focus:outline-none'>
             <svg
               viewBox='0 0 100 80'
               width='40'
