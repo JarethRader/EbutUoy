@@ -46,30 +46,48 @@ const Settings = (props: ConnectedProps<typeof connector> & props) => {
   const toggleSidebar = () => setShowidebar(!showSidebar);
 
   const { path, url } = useRouteMatch();
-  console.log(`${path}/accounts`);
-  return (
-    <div className='min-h-screen'>
-      <props.Navbar
-        isAuthenticated={props.isAuthenticated}
-        toggleSidebar={toggleSidebar}
-      />
-      {showSidebar && <SettingsNav routes={settingsRoutes} url={url} />}
-      <div className='flex justify-center'>
-        <h1 className='py-20 font-bold text-2xl'>Settings</h1>
-        <Switch>
-          <Route path={`${path}/:topicId`}>
-            <Options />
-          </Route>
-        </Switch>
+  if (!props.isAuthenticated) {
+    return <Redirect to='/authenticate' />;
+  } else {
+    return (
+      <div className='min-h-screen'>
+        <props.Navbar
+          isAuthenticated={props.isAuthenticated}
+          toggleSidebar={toggleSidebar}
+        />
+        {showSidebar && <SettingsNav routes={settingsRoutes} url={url} />}
+        <div className='flex justify-center'>
+          <Switch>
+            <Route path={`${path}/:settingsId`}>
+              <div
+                className='w-full'
+                style={{
+                  marginTop: '10vh',
+                  marginLeft: '20vw',
+                  marginRight: '20vw',
+                }}>
+                <Options />
+              </div>
+            </Route>
+            <Route path={`${path}`}>
+              <Redirect to={`${path}/account`} />
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 const Options = () => {
   // @ts-ignore
-  const { topicId } = useParams();
-  return <div>{topicId}</div>;
+  const { settingsId } = useParams();
+  switch (settingsId) {
+    case 'account':
+      return <AccountInfo />;
+    default:
+      return <AccountInfo />;
+  }
 };
 
 export default connector(Settings);

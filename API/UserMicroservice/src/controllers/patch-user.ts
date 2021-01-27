@@ -2,6 +2,7 @@ const buildPatchUser: BuildPatchUser = (editUser) => {
   const patchUser = async (
     request: ExpressHttpRequest
   ): Promise<IController> => {
+    console.log(request);
     try {
       const updatedUser = await editUser(request.params.id, request.body);
       return {
@@ -9,7 +10,16 @@ const buildPatchUser: BuildPatchUser = (editUser) => {
           'Content-Type': 'application/json',
         },
         statusCode: 200,
-        body: { user: updatedUser },
+        body: {
+          user: {
+            id: updatedUser?.id,
+            username: updatedUser?.username,
+            email: updatedUser?.email,
+            dob: updatedUser?.dob,
+            matureContent: updatedUser?.matureContent,
+            verified: updatedUser?.verified,
+          } as ReturnUser,
+        },
       };
     } catch (err) {
       return {

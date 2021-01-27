@@ -24,6 +24,20 @@ export default function (
         isAuthenticated: true,
         isVerified: action.payload.user.verified,
         matureContent: action.payload.user.matureContent,
+        userLoading: false,
+      };
+    case 'UPDATE_USER_SUCCESS':
+      return {
+        ...state,
+        userInfo: {
+          id: action.payload.user.id,
+          username: action.payload.user.username,
+          email: action.payload.user.email,
+          dob: action.payload.user.dob,
+        },
+        isVerified: action.payload.user.verified,
+        matureContent: action.payload.user.matureContent,
+        userLoading: false,
       };
     case 'LOGIN_FAILED':
     case 'REGISTER_FAILED':
@@ -33,6 +47,12 @@ export default function (
         isAuthenticated: false,
         isVerified: false,
         matureContent: false,
+        userLoading: false,
+      };
+    case 'UPDATE_USER_FAILED':
+      return {
+        ...state,
+        userLoading: false,
       };
     case 'USER_LOADING':
       return {

@@ -12,7 +12,7 @@ const makeValidate: MakeEditValidate = (userDb, toObjectId) => {
     if (userInfo.email) {
       userInstance &&
         userInstance
-          .findOneByEmail(userInfo.getEmail())
+          .findOneByEmail(userInfo.email)
           .then((foundUser) => {
             if (foundUser && foundUser.id !== userInfo.getId()) {
               throw new Error(

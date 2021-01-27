@@ -22,7 +22,7 @@ const mapDispatchToProps = {};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const Home = (props: ConnectedProps<typeof connector> & props) => {
-  const [showSidebar, setShowidebar] = React.useState(true);
+  const [showSidebar, setShowidebar] = React.useState(false);
   const toggleSidebar = () => setShowidebar(!showSidebar);
   return (
     <div className='h-full'>

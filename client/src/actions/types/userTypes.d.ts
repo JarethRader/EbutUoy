@@ -6,6 +6,8 @@ import {
   REGISTER_FAILED,
   USER_LOADED,
   AUTH_ERROR,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED,
 } from './types';
 
 declare global {
@@ -32,7 +34,7 @@ declare global {
   // Login action interface
   interface LoginSuccess {
     type: typeof LOGIN_SUCCESS;
-    payload: AuthenticationResponse;
+    payload: UserResponse;
   }
   interface LoginFail {
     type: typeof LOGIN_FAILED;
@@ -54,7 +56,16 @@ declare global {
     password: string;
   }
 
-  interface AuthenticationResponse {
+  interface UpdateUserInfoObj {
+    username?: string;
+    email?: string;
+    password?: string;
+    dob?: string;
+    matureContent?: boolean;
+    verified?: boolean;
+  }
+
+  interface UserResponse {
     user: {
       id: string;
       username: string;
@@ -68,7 +79,7 @@ declare global {
   // Register success interface
   interface RegisterSuccess {
     type: typeof REGISTER_SUCCESS;
-    payload: AuthenticationResponse;
+    payload: UserResponse;
   }
   // Register failed interface
   interface RegisterFail {
@@ -76,7 +87,7 @@ declare global {
     payload?: null;
   }
   // Register action type
-  export type RegisterActionTypes = RegisterSuccess | RegisterFail;
+  type RegisterActionTypes = RegisterSuccess | RegisterFail;
 
   interface AuthFailed {
     type: typeof AUTH_ERROR;
@@ -90,9 +101,22 @@ declare global {
 
   type AuthActionTypes = AuthFailed | AuthSuccess;
 
+  interface UpdateSuccess {
+    type: typeof UPDATE_USER_SUCCESS;
+    payload: UserResponse;
+  }
+
+  interface UpdateFailed {
+    type: typeof UPDATE_USER_FAILED;
+    payload?: null;
+  }
+
+  type UpdateActionType = UpdateSuccess | UpdateFailed;
+
   type UserActionTypes =
     | LoginActionTypes
     | LoadingUserAction
     | RegisterActionTypes
-    | AuthActionTypes;
+    | AuthActionTypes
+    | UpdateActionType;
 }

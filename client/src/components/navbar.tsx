@@ -30,7 +30,7 @@ const Navbar = (props: Props) => {
             </svg>
           </button>
         </div>
-        <div className='flex self-center font-bold text-xl px-4'>
+        <div className='flex self-center font-bold lg:text-xl text-sm px-4'>
           {/* can replace this with an icon later */}
           <Link to='/'>
             <h1>EbutUoy</h1>
@@ -38,11 +38,10 @@ const Navbar = (props: Props) => {
         </div>
       </div>
       {/* Search bar */}
-      <div className='py-2'>
+      <div className='py-2 xl:w-1/3'>
         <input
           type='text'
-          className='py-1 shadow-inner'
-          style={{ paddingLeft: '12.5vw', paddingRight: '12.5vw' }}
+          className='py-1 px-2 shadow-inner xl:w-10/12 lg:w-4/5'
         />
         {/* can add a search icon here later */}
         <button className='bg-gray-300 px-2 py-1'>Search</button>

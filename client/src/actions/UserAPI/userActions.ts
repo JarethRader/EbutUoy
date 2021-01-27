@@ -5,7 +5,7 @@ import { RootState } from '../../reducers/index';
 import { USER_BASE, API_SUFFIX, CSRFConfig } from '../utils/config';
 
 // import helper functions
-import { RegisterHelper, LoginHelper } from './functions';
+import { RegisterHelper, LoginHelper, UpdateHelper } from './functions';
 
 /**
  * @desc Register a new user
@@ -56,6 +56,30 @@ export const login = (body: UserLoginInfoObj): UserThunk => async (
   } catch (err) {
     dispatch({
       type: 'LOGIN_FAILED',
+    });
+  }
+};
+
+export const update = (
+  body: UpdateUserInfoObj,
+  userID: string
+): UserThunk => async (dispatch: ThunkDispatch<RootState, void, Action>) => {
+  dispatch({ type: 'USER_LOADING' });
+  try {
+    await UpdateHelper(body, userID, USER_BASE + API_SUFFIX, CSRFConfig)
+      .then((response) => {
+        console.log(response);
+        dispatch({
+          type: 'UPDATE_USER_SUCCESS',
+          payload: response,
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  } catch (err) {
+    dispatch({
+      type: 'UPDATE_USER_FAILED',
     });
   }
 };

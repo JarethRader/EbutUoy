@@ -9,7 +9,11 @@ const LoginForm: React.FC<Props> = (props: Props) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const handleSignIn = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSignIn = (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
     const body = {
       email,
@@ -26,7 +30,9 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         <p>to continue to EbutOuy</p>
       </div>
       <div>
-        <form className='flex flex-col justify-left px-12'>
+        <form
+          onSubmit={(e) => handleSignIn(e)}
+          className='flex flex-col justify-left px-12'>
           <input
             type='text'
             placeholder='Email'

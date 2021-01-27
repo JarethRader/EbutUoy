@@ -3,7 +3,7 @@ export const RegisterHelper = (
   API: string,
   CSRFConfig: any
 ) => {
-  return new Promise<AuthenticationResponse>(async (resolve, reject) => {
+  return new Promise<UserResponse>(async (resolve, reject) => {
     await fetch(API + '/user', {
       method: 'POST',
       credentials: 'include',

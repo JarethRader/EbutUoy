@@ -10,13 +10,13 @@ interface Props {
 
 const Sidebar = (props: Props) => {
   return (
-    <div className='flex flex-col justify-left bg-gray-200 w-1/6 absolute'>
+    <div className='flex flex-col justify-left bg-gray-200 xl:w-1/6 lg:w-1/5 w-full absolute'>
       <div className='flex flex-col-reverse'>
         {props.routes.slice(7, 12).map(({ path, name }) => (
           //   I can add an icon for each route later
           <div
             key={name}
-            className='pl-12 py-2 flex justify-left hover:bg-gray-400 '>
+            className='xl:pl-12 pl-8 py-2 flex justify-left hover:bg-gray-400 '>
             <Link to={path}>{name}</Link>
           </div>
         ))}
@@ -29,13 +29,13 @@ const Sidebar = (props: Props) => {
               //   I can add an icon for each route later
               <div
                 key={name}
-                className='pl-12 py-2 flex justify-left hover:bg-gray-400 '>
+                className='xl:pl-12 pl-8 py-2 flex justify-left hover:bg-gray-400 '>
                 <Link to={path}>{name}</Link>
               </div>
             ))}
           </div>
         ) : (
-          <div className='w-full flex self-center justify-left pl-12'>
+          <div className='w-full flex self-center justify-left xl:pl-12 pl-8'>
             <Link
               to='/authenticate'
               className='px-4 py-2 border-purple-600 border-2 text-purple-600 font-semibold '>
@@ -50,7 +50,7 @@ const Sidebar = (props: Props) => {
         //   I can add an icon for each route later
         <div
           key={name}
-          className='pl-12 py-2 flex justify-left hover:bg-gray-400 '>
+          className='xl:pl-12 pl-8 py-2 flex justify-left hover:bg-gray-400 '>
           <Link to={path}>{name}</Link>
         </div>
       ))}

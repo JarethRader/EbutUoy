@@ -11,7 +11,7 @@ interface Props {
 
 const SettingsNav = (props: Props) => {
   return (
-    <div className='flex flex-col justify-left bg-gray-200 w-1/6 absolute h-full'>
+    <div className='flex flex-col justify-left bg-gray-200 xl:w-1/6 lg:w-1/5 w-full absolute'>
       <div>
         {props.routes.map(({ path, name }) => (
           <div
