@@ -1,5 +1,4 @@
 import React from 'react';
-import useWindowSize from '../utils/getViewport';
 
 import Sidebar from '../components/sidebar';
 
@@ -23,8 +22,6 @@ const mapDispatchToProps = {};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const Home = (props: ConnectedProps<typeof connector> & props) => {
-  const size = useWindowSize();
-
   const [showSidebar, setShowidebar] = React.useState(false);
   const toggleSidebar = () => setShowidebar(!showSidebar);
   return (
@@ -32,25 +29,9 @@ const Home = (props: ConnectedProps<typeof connector> & props) => {
       <props.Navbar
         isAuthenticated={props.isAuthenticated}
         toggleSidebar={toggleSidebar}
-        size={size}
       />
-      {size.width! > 600 ? (
-        <div>
-          {showSidebar && (
-            <Sidebar
-              routes={props.routes}
-              isAuthenticated={props.isAuthenticated}
-              size={size}
-            />
-          )}
-        </div>
-      ) : (
-        <Sidebar
-          routes={props.routes}
-          isAuthenticated={props.isAuthenticated}
-          size={size}
-        />
-      )}
+      <Sidebar routes={props.routes} isAuthenticated={props.isAuthenticated} />
+
       <div className='flex justify-center'>
         <h1 className='py-20 font-bold text-2xl'>EbutOuy</h1>
       </div>

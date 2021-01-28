@@ -1,13 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useWindowSize from '../utils/getViewport';
 
 interface Props {
   isAuthenticated: boolean;
   toggleSidebar?: () => void;
-  size: {
-    width: number | undefined;
-    height: number | undefined;
-  };
 }
 
 const Navbar = (props: Props) => {
@@ -17,7 +14,9 @@ const Navbar = (props: Props) => {
       : console.log('No sidebar present'); // handle this better later
   };
 
-  if (props.size.width! > 600) {
+  const size = useWindowSize();
+
+  if (size.width! > 600) {
     return (
       <div className='flex flex-row justify-between self-center px-4 py-1 bg-gray-400 border-b-2 border-gray-800'>
         {/* Toggle Sidebar */}

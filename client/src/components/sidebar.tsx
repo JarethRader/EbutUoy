@@ -7,14 +7,11 @@ interface Props {
     [key: string]: any;
   }[];
   isAuthenticated: boolean;
-  size: {
-    width: number | undefined;
-    height: number | undefined;
-  };
 }
 
 const Sidebar = (props: Props) => {
-  if (props.size.width! > 600) {
+  const size = useWindowSize();
+  if (size.width && size.width > 600) {
     return (
       <div className='flex flex-col justify-left bg-gray-200 xl:w-1/6 lg:w-1/5 w-full absolute'>
         <div className='flex flex-col-reverse'>
