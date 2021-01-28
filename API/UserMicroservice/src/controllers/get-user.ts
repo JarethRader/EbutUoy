@@ -8,7 +8,16 @@ const buildGetUser: BuildGetUser = (listUser) => {
           'Content-Type': 'application/json',
         },
         statusCode: 200,
-        body: { user: listedUser },
+        body: {
+          user: {
+            id: listedUser?.id,
+            username: listedUser?.username,
+            email: listedUser?.email,
+            dob: listedUser?.dob,
+            matureContent: listedUser?.matureContent,
+            verified: listedUser?.verified,
+          } as ReturnUser,
+        },
       };
     } catch (err) {
       return {

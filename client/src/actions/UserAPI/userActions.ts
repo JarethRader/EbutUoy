@@ -5,7 +5,16 @@ import { RootState } from '../../reducers/index';
 import { USER_BASE, API_SUFFIX, CSRFConfig } from '../utils/config';
 
 // import helper functions
-import { RegisterHelper, LoginHelper, UpdateHelper } from './functions';
+import {
+  RegisterHelper,
+  LoginHelper,
+  UpdateHelper,
+  LogoutHelper,
+  getUserHelper,
+  deleteHelper,
+} from './functions';
+
+const USER_API = USER_BASE + API_SUFFIX;
 
 /**
  * @desc Register a new user
@@ -16,7 +25,7 @@ export const register = (body: UserInfoObj): UserThunk => async (
 ) => {
   dispatch({ type: 'USER_LOADING ' });
   try {
-    await RegisterHelper(body, USER_BASE + API_SUFFIX, CSRFConfig)
+    await RegisterHelper(body, USER_API, CSRFConfig)
       .then((response) => {
         dispatch({
           type: 'REGISTER_SUCCESS',
@@ -43,7 +52,7 @@ export const login = (body: UserLoginInfoObj): UserThunk => async (
 ) => {
   dispatch({ type: 'USER_LOADING' });
   try {
-    await LoginHelper(body, USER_BASE + API_SUFFIX, CSRFConfig)
+    await LoginHelper(body, USER_API, CSRFConfig)
       .then((response) => {
         dispatch({
           type: 'LOGIN_SUCCESS',
@@ -60,13 +69,34 @@ export const login = (body: UserLoginInfoObj): UserThunk => async (
   }
 };
 
+export const logout = (): UserThunk => async (
+  dispatch: ThunkDispatch<RootState, void, Action>
+) => {
+  dispatch({ type: 'USER_LOADING' });
+  try {
+    await LogoutHelper(USER_API, CSRFConfig)
+      .then((response) => {
+        dispatch({
+          type: 'LOGOUT_SUCCESS',
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  } catch (err) {
+    dispatch({
+      type: 'LOGOUT_FAILED',
+    });
+  }
+};
+
 export const update = (
   body: UpdateUserInfoObj,
   userID: string
 ): UserThunk => async (dispatch: ThunkDispatch<RootState, void, Action>) => {
   dispatch({ type: 'USER_LOADING' });
   try {
-    await UpdateHelper(body, userID, USER_BASE + API_SUFFIX, CSRFConfig)
+    await UpdateHelper(body, userID, USER_API, CSRFConfig)
       .then((response) => {
         console.log(response);
         dispatch({
@@ -80,6 +110,49 @@ export const update = (
   } catch (err) {
     dispatch({
       type: 'UPDATE_USER_FAILED',
+    });
+  }
+};
+
+export const getUser = (userID: string): UserThunk => async (
+  dispatch: ThunkDispatch<RootState, void, Action>
+) => {
+  dispatch({ type: 'USER_LOADING' });
+  try {
+    await getUserHelper(userID, USER_API, CSRFConfig)
+      .then((response) => {
+        dispatch({
+          type: 'GET_SELF_SUCCESS',
+          payload: response,
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  } catch (err) {
+    dispatch({
+      type: 'GET_SELF_FAILED',
+    });
+  }
+};
+
+export const deleteUser = (userID: string): UserThunk => async (
+  dispatch: ThunkDispatch<RootState, void, Action>
+) => {
+  dispatch({ type: 'USER_LOADING' });
+  try {
+    await deleteHelper(userID, USER_API, CSRFConfig)
+      .then((response) => {
+        dispatch({
+          type: 'DELETE_USER_SUCCESS',
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  } catch (err) {
+    dispatch({
+      type: 'DELETE_USER_FAILED',
     });
   }
 };

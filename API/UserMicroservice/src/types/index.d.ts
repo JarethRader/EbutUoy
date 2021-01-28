@@ -139,6 +139,10 @@ declare global {
     verified: boolean;
   }
 
+  interface UserDeleted {
+    removed: boolean;
+  }
+
   // Controller
   interface IControllerResponse {
     headers: {
@@ -146,7 +150,7 @@ declare global {
     };
     statusCode: number;
     body: {
-      user: IUserModel | ReturnUser | undefined;
+      user: IUserModel | ReturnUser | UserDeleted | undefined;
     };
     session?: {
       userID?: string;

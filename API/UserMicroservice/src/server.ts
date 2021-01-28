@@ -117,6 +117,7 @@ app.get(
   auth.checkSignIn,
   makeCallback(getUser)
 );
+// get other users profile -> access: public
 // delete
 app.delete(
   `${envConfig['API_ROOT']}/user/:id`,

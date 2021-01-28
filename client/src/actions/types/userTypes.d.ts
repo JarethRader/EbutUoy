@@ -8,6 +8,12 @@ import {
   AUTH_ERROR,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILED,
+  GET_SELF_SUCCESS,
+  GET_SELF_FAILED,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAILED,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILED,
 } from './types';
 
 declare global {
@@ -25,24 +31,6 @@ declare global {
     matureContent?: boolean;
     userLoading?: boolean;
   }
-
-  interface LoadingUserAction {
-    type: typeof USER_LOADING;
-    payload?: null;
-  }
-
-  // Login action interface
-  interface LoginSuccess {
-    type: typeof LOGIN_SUCCESS;
-    payload: UserResponse;
-  }
-  interface LoginFail {
-    type: typeof LOGIN_FAILED;
-    payload?: null;
-  }
-
-  // Login action type
-  type LoginActionTypes = LoginSuccess | LoginFail;
 
   interface UserInfoObj {
     username: string;
@@ -76,6 +64,37 @@ declare global {
     };
   }
 
+  interface LoadingUserAction {
+    type: typeof USER_LOADING;
+    payload?: null;
+  }
+
+  // Login action interface
+  interface LoginSuccess {
+    type: typeof LOGIN_SUCCESS;
+    payload: UserResponse;
+  }
+  interface LoginFail {
+    type: typeof LOGIN_FAILED;
+    payload?: null;
+  }
+
+  // Login action type
+  type LoginActionTypes = LoginSuccess | LoginFail;
+
+  // Login action interface
+  interface LogoutSuccess {
+    type: typeof LOGOUT_SUCCESS;
+    payload?: null;
+  }
+  interface LogoutFail {
+    type: typeof LOGOUT_FAILED;
+    payload?: null;
+  }
+
+  // Logout action type
+  type LogoutActionTypes = LogoutSuccess | LogoutFail;
+
   // Register success interface
   interface RegisterSuccess {
     type: typeof REGISTER_SUCCESS;
@@ -89,6 +108,7 @@ declare global {
   // Register action type
   type RegisterActionTypes = RegisterSuccess | RegisterFail;
 
+  // cookie authentication type
   interface AuthFailed {
     type: typeof AUTH_ERROR;
     payload?: any;
@@ -101,6 +121,7 @@ declare global {
 
   type AuthActionTypes = AuthFailed | AuthSuccess;
 
+  // update user profile data types
   interface UpdateSuccess {
     type: typeof UPDATE_USER_SUCCESS;
     payload: UserResponse;
@@ -113,10 +134,39 @@ declare global {
 
   type UpdateActionType = UpdateSuccess | UpdateFailed;
 
+  // get use data types
+  interface GetUserSuccess {
+    type: typeof GET_SELF_SUCCESS;
+    payload: UserResponse;
+  }
+
+  interface GetUserFailed {
+    type: typeof GET_SELF_FAILED;
+    payload?: null;
+  }
+
+  type GetUserActionTypes = GetUserSuccess | GetUserFailed;
+
+  // delete user types
+  interface DeleteUserSuccess {
+    type: typeof DELETE_USER_SUCCESS;
+    payload: null;
+  }
+
+  interface DeleteUserFailed {
+    type: typeof DELETE_USER_FAILED;
+    payload: null;
+  }
+
+  type DeleteUserActionTypes = DeleteUserSuccess | DeleteUserFailed;
+
   type UserActionTypes =
     | LoginActionTypes
     | LoadingUserAction
     | RegisterActionTypes
     | AuthActionTypes
-    | UpdateActionType;
+    | UpdateActionType
+    | GetUserActionTypes
+    | DeleteUserActionTypes
+    | LogoutActionTypes;
 }

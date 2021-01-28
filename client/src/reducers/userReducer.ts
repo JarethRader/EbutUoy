@@ -26,6 +26,7 @@ export default function (
         matureContent: action.payload.user.matureContent,
         userLoading: false,
       };
+    case 'GET_SELF_SUCCESS':
     case 'UPDATE_USER_SUCCESS':
       return {
         ...state,
@@ -39,6 +40,8 @@ export default function (
         matureContent: action.payload.user.matureContent,
         userLoading: false,
       };
+    case 'LOGOUT_SUCCESS':
+    case 'DELETE_USER_SUCCESS':
     case 'LOGIN_FAILED':
     case 'REGISTER_FAILED':
       return {
@@ -49,6 +52,9 @@ export default function (
         matureContent: false,
         userLoading: false,
       };
+    case 'LOGOUT_FAILED':
+    case 'DELETE_USER_FAILED':
+    case 'GET_SELF_FAILED':
     case 'UPDATE_USER_FAILED':
       return {
         ...state,

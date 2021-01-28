@@ -10,7 +10,7 @@ const buildDeleteUser: BuildDeleteUser = (removeUser) => {
           'Content-Type': 'application/json',
         },
         statusCode: 200,
-        body: { user: removedUser },
+        body: { user: { removed: true } },
         session: {
           destroy: true,
         },
