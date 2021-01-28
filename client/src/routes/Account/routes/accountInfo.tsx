@@ -6,7 +6,7 @@ import React from 'react';
 
 interface props {}
 
-import { update } from '../../../actions/UserAPI/userActions';
+import { update, deleteUser } from '../../../actions/UserAPI/userActions';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../../reducers/index';
@@ -18,11 +18,14 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = {
   update,
+  deleteUser,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const AccountInfo = (props: ConnectedProps<typeof connector> & props) => {
+  const [toDelete, setToDelete] = React.useState(false);
+
   return (
     <div className='w-full bg-gray-200 border-purple-600 border-2 rounded-xl shadow-lg px-8 py-4'>
       <div className='flex justify-left flex-col'>
@@ -51,6 +54,30 @@ const AccountInfo = (props: ConnectedProps<typeof connector> & props) => {
           value={props.userInfo.username as string}
           update={props.update}
         />
+      </div>
+      <hr className='my-2 border-1 border-purple-600' />
+      <div>
+        <h1 className='font-bold'>Manage Account</h1>
+        {toDelete ? (
+          <div>
+            <p className='py-2'>
+              You are about to delete your account, do you want to continue?
+            </p>
+            <button
+              onClick={() => props.deleteUser(props.userInfo.id)}
+              className='px-4 py-2 mt-1 rounded bg-red-600 hover:bg-red-700 text-white font-semibold focus:outline-none'>
+              Delete
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => {
+              setToDelete(!toDelete);
+            }}
+            className='px-4 py-2 mt-1 rounded bg-red-600 hover:bg-red-700 text-white font-semibold focus:outline-none'>
+            Delete Account
+          </button>
+        )}
       </div>
     </div>
   );
@@ -85,7 +112,7 @@ const SettingComponent = (props: settingsComponentProps) => {
   };
 
   return (
-    <div className='w-full flex justify-between'>
+    <div className='w-full flex justify-between md:flex-row flex-col'>
       {edit ? (
         <div>
           <input

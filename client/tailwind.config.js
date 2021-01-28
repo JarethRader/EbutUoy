@@ -9,6 +9,13 @@ module.exports = {
         65: '65vh',
       },
       spacing: {
+        wfive: '5vw',
+        wten: '10vw',
+        wfifteen: '15vw',
+        wtwenty: '20vw',
+        hten: '10vh',
+        hfifteen: '15vh',
+        htwenty: '20vh',
         26: '6.5rem',
         28: '7rem',
         30: '7.5rem',

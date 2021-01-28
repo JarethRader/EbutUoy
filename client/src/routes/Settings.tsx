@@ -42,41 +42,35 @@ const mapDispatchToProps = {};
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const Settings = (props: ConnectedProps<typeof connector> & props) => {
-  const [showSidebar, setShowidebar] = React.useState(true);
+  const [showSidebar, setShowidebar] = React.useState(false);
   const toggleSidebar = () => setShowidebar(!showSidebar);
 
   const { path, url } = useRouteMatch();
-  if (!props.isAuthenticated) {
-    return <Redirect to='/authenticate' />;
-  } else {
-    return (
-      <div className='min-h-screen'>
-        <props.Navbar
-          isAuthenticated={props.isAuthenticated}
-          toggleSidebar={toggleSidebar}
-        />
-        {showSidebar && <SettingsNav routes={settingsRoutes} url={url} />}
-        <div className='flex justify-center'>
-          <Switch>
-            <Route path={`${path}/:settingsId`}>
-              <div
-                className='w-full'
-                style={{
-                  marginTop: '10vh',
-                  marginLeft: '20vw',
-                  marginRight: '20vw',
-                }}>
-                <Options />
-              </div>
-            </Route>
-            <Route path={`${path}`}>
-              <Redirect to={`${path}/account`} />
-            </Route>
-          </Switch>
-        </div>
+  // if (!props.isAuthenticated) {
+  //   return <Redirect to='/authenticate' />;
+  // } else {
+  return (
+    <div className='min-h-screen'>
+      <props.Navbar
+        isAuthenticated={props.isAuthenticated}
+        toggleSidebar={toggleSidebar}
+      />
+      {showSidebar && <SettingsNav routes={settingsRoutes} url={url} />}
+      <div className='flex justify-center'>
+        <Switch>
+          <Route path={`${path}/:settingsId`}>
+            <div className='w-full md:mx-wtwenty mx-wfive mt-hten'>
+              <Options />
+            </div>
+          </Route>
+          <Route path={`${path}`}>
+            <Redirect to={`${path}/account`} />
+          </Route>
+        </Switch>
       </div>
-    );
-  }
+    </div>
+  );
+  // }
 };
 
 const Options = () => {
